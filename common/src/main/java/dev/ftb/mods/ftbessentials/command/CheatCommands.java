@@ -410,7 +410,7 @@ public class CheatCommands {
 			Util.safeReplaceFile(datFile, tempFile, backupFile);
 
 			source.sendSuccess(() -> Component.literal(String.format("离线玩家 %s 移动到了 %s 维度的 [%.2f,%.2f,%.2f]",
-					playerId, source.getLevel().dimension().location())), vec.x, vec.y, vec.z, false);
+					playerId, source.getLevel().dimension().location(), vec.x, vec.y, vec.z)), false);
 			return 1;
 		} catch (IOException e) {
 			source.sendFailure(Component.literal("无法更新对应的.dat文件：" + e.getMessage()));
