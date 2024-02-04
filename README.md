@@ -1,3 +1,2 @@
-# FTB Essentials
-
-Use https://github.com/FTBTeam/FTB-Mods-Issues for any mod issues
+# FTB Essentials CHS
+Forge 1.20.1 汉化
