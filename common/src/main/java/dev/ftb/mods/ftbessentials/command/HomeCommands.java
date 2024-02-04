@@ -75,10 +75,10 @@ public class HomeCommands {
 		return FTBEPlayerData.getOrCreate(player).map(data -> {
 			try {
 				data.homeManager().addDestination(name, new TeleportPos(player), player);
-				player.displayClientMessage(Component.literal("Home set!"), false);
+				player.displayClientMessage(Component.literal("已设置家！"), false);
 				return 1;
 			} catch (SavedTeleportManager.TooManyDestinationsException e) {
-				player.displayClientMessage(Component.literal("Can't add any more homes!"), false);
+				player.displayClientMessage(Component.literal("小弟弟/小妹妹你还想要几个家啊！"), false);
 				return 0;
 			}
 		}).orElse(0);
@@ -87,10 +87,10 @@ public class HomeCommands {
 	public static int delHome(ServerPlayer player, String name) {
 		return FTBEPlayerData.getOrCreate(player).map(data -> {
 			if (data.homeManager().deleteDestination(name.toLowerCase())) {
-				player.displayClientMessage(Component.literal("Home deleted!"), false);
+				player.displayClientMessage(Component.literal("已移除家！"), false);
 				return 1;
 			} else {
-				player.displayClientMessage(Component.literal("Home not found!"), false);
+				player.displayClientMessage(Component.literal("找不到家了！你设置了吗？"), false);
 				return 0;
 			}
 		}).orElse(0);
@@ -99,11 +99,11 @@ public class HomeCommands {
 	public static int listHomes(CommandSourceStack source, GameProfile of) {
 		return FTBEPlayerData.getOrCreate(of).map(data -> {
 			if (data.homeManager().getNames().isEmpty()) {
-				source.sendSuccess(() -> Component.literal("None"), false);
+				source.sendSuccess(() -> Component.literal("你无家可归"), false);
 			} else {
 				TeleportPos origin = new TeleportPos(source.getLevel().dimension(), BlockPos.containing(source.getPosition()));
 				data.homeManager().destinations().forEach(entry ->
-						source.sendSuccess(() -> Component.literal(entry.name() + ": " + entry.destination().distanceString(origin)), false));
+						source.sendSuccess(() -> Component.literal(entry.name() + "：" + entry.destination().distanceString(origin)), false));
 			}
 			return 1;
 		}).orElse(0);

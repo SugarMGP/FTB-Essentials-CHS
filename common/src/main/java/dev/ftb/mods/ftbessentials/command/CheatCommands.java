@@ -250,11 +250,11 @@ public class CheatCommands {
 				data.setCanFly(false);
 				abilities.mayfly = false;
 				abilities.flying = false;
-				player.displayClientMessage(Component.literal("Flight disabled"), true);
+				player.displayClientMessage(Component.literal("飞行已禁用"), true);
 			} else {
 				data.setCanFly(true);
 				abilities.mayfly = true;
-				player.displayClientMessage(Component.literal("Flight enabled"), true);
+				player.displayClientMessage(Component.literal("飞行已启用"), true);
 			}
 
 			player.onUpdateAbilities();
@@ -269,11 +269,11 @@ public class CheatCommands {
 			if (data.isGod()) {
 				data.setGod(false);
 				abilities.invulnerable = false;
-				player.displayClientMessage(Component.literal("God mode disabled"), true);
+				player.displayClientMessage(Component.literal("无敌模式已禁用"), true);
 			} else {
 				data.setGod(true);
 				abilities.invulnerable = true;
-				player.displayClientMessage(Component.literal("God mode enabled"), true);
+				player.displayClientMessage(Component.literal("无敌模式已启用"), true);
 			}
 
 			player.onUpdateAbilities();
@@ -299,7 +299,7 @@ public class CheatCommands {
 
 	public static int nicknameFor(CommandSourceStack source, ServerPlayer player, String nick) {
 		if (nick.length() > 30) {
-			player.displayClientMessage(Component.literal("Nickname too long!"), false);
+			player.displayClientMessage(Component.literal("昵称过长！"), false);
 			return 0;
 		}
 
@@ -309,9 +309,9 @@ public class CheatCommands {
 			PlayerDisplayNameUtil.refreshDisplayName(player);
 
 			if (data.getNick().isEmpty()) {
-				source.sendSuccess(() -> Component.literal("Nickname reset!"), true);
+				source.sendSuccess(() -> Component.literal("昵称已重置！"), true);
 			} else {
-				source.sendSuccess(() -> Component.literal("Nickname changed to '" + data.getNick() + "'"), true);
+				source.sendSuccess(() -> Component.literal("昵称已改为'" + data.getNick() + "'"), true);
 			}
 
 			data.sendTabName(source.getServer());
@@ -327,15 +327,15 @@ public class CheatCommands {
 				FTBEWorldData.instance.setMuteTimeout(player, info.until());
 
 				MutableComponent msg = player.getDisplayName().copy()
-						.append(" has been muted by ")
+						.append(" 被 ")
 						.append(source.getDisplayName())
-						.append(", ")
+						.append(" 禁言了，")
 						.append(info.desc());
 				notifyMuting(source, player, msg);
 
 				return 1;
 			} catch (IllegalArgumentException e) {
-				source.sendFailure(Component.literal("Invalid duration syntax: '" + duration + "': " + e.getMessage()));
+				source.sendFailure(Component.literal("无效的时效语法：'" + duration + "'：" + e.getMessage()));
 				return 0;
 			}
 		}).orElse(0);
@@ -347,8 +347,9 @@ public class CheatCommands {
 			FTBEWorldData.instance.setMuteTimeout(player, -1);
 
 			MutableComponent msg = player.getDisplayName().copy()
-					.append(" has been unmuted by ")
-					.append(source.getDisplayName());
+					.append(" 被 ")
+					.append(source.getDisplayName())
+					.append(" 解除禁言了");
 			notifyMuting(source, player, msg);
 
 			return 1;
@@ -372,7 +373,7 @@ public class CheatCommands {
 		source.getServer().getProfileCache().getAsync(playerName, profileOpt -> {
 			source.getServer().executeIfPossible(() ->
 					profileOpt.ifPresentOrElse(profile -> tpOffline(source, profile.getId(), level, dest),
-							() -> source.sendFailure(Component.literal("Unknown player: " + playerName))
+							() -> source.sendFailure(Component.literal("未知玩家：" + playerName))
 					)
 			);
 		});
@@ -387,7 +388,7 @@ public class CheatCommands {
 		File datFile = playerDir.resolve(playerId + ".dat").toFile();
 
 		if (server.getPlayerList().getPlayer(playerId) != null) {
-			source.sendFailure(Component.literal("Player is online! Use regular /tp command instead"));
+			source.sendFailure(Component.literal("玩家在线！请使用/tp指令"));
 			return 0;
 		}
 
@@ -399,20 +400,20 @@ public class CheatCommands {
 			newPos.add(DoubleTag.valueOf(vec.x));
 			newPos.add(DoubleTag.valueOf(vec.y));
 			newPos.add(DoubleTag.valueOf(vec.z));
-			tag.put("Pos", newPos);
+			tag.put("位置", newPos);
 
-			tag.putString("Dimension", level.dimension().location().toString());
+			tag.putString("维度", level.dimension().location().toString());
 
 			File tempFile = File.createTempFile(playerId + "-", ".dat", playerDir.toFile());
 			NbtIo.writeCompressed(tag, tempFile);
 			File backupFile = new File(playerDir.toFile(), playerId + ".dat_old");
 			Util.safeReplaceFile(datFile, tempFile, backupFile);
 
-			source.sendSuccess(() -> Component.literal(String.format("Offline player %s moved to [%.2f,%.2f,%.2f] in %s",
-					playerId, vec.x, vec.y, vec.z, source.getLevel().dimension().location())), false);
+			source.sendSuccess(() -> Component.literal(String.format("离线玩家 %s 移动到了 %s 维度的 [%.2f,%.2f,%.2f]",
+					playerId, source.getLevel().dimension().location())), vec.x, vec.y, vec.z, false);
 			return 1;
 		} catch (IOException e) {
-			source.sendFailure(Component.literal("Can't update dat file: " + e.getMessage()));
+			source.sendFailure(Component.literal("无法更新对应的.dat文件：" + e.getMessage()));
 			return 0;
 		}
 	}

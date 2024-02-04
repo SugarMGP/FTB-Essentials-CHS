@@ -64,23 +64,23 @@ public class WarpCommands {
 
 	public static int setWarp(ServerPlayer player, String name) {
 		FTBEWorldData.instance.warpManager().addDestination(name, new TeleportPos(player), player);
-		player.displayClientMessage(Component.literal("Warp set!"), false);
+		player.displayClientMessage(Component.literal("传送已设置！"), false);
 		return 1;
 	}
 
 	public static int deleteWarp(ServerPlayer player, String name) {
 		if (FTBEWorldData.instance.warpManager().deleteDestination(name.toLowerCase())) {
-			player.displayClientMessage(Component.literal("Warp deleted!"), false);
+			player.displayClientMessage(Component.literal("传送已删除！"), false);
 			return 1;
 		} else {
-			player.displayClientMessage(Component.literal("Warp not found!"), false);
+			player.displayClientMessage(Component.literal("传送未找到！"), false);
 			return 0;
 		}
 	}
 
 	public static int listWarps(CommandSourceStack source) {
 		if (FTBEWorldData.instance.warpManager().getNames().isEmpty()) {
-			source.sendSuccess(() -> Component.literal("None"), false);
+			source.sendSuccess(() -> Component.literal("莫得"), false);
 		} else {
 			TeleportPos origin = new TeleportPos(source.getLevel().dimension(), BlockPos.containing(source.getPosition()));
 			FTBEWorldData.instance.warpManager().destinations().forEach(entry ->

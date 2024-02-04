@@ -172,7 +172,7 @@ public class MiscCommands {
 	}
 
 	public static int kickme(ServerPlayer player) {
-		player.connection.disconnect(Component.literal("You kicked yourself!"));
+		player.connection.disconnect(Component.literal("你把自己踹嘞！"));
 		return 1;
 	}
 
@@ -180,7 +180,7 @@ public class MiscCommands {
 		player.openMenu(new MenuProvider() {
 			@Override
 			public Component getDisplayName() {
-				return Component.literal("Trash Can");
+				return Component.literal("立及甬");
 			}
 
 			@Override
@@ -232,10 +232,10 @@ public class MiscCommands {
 			}
 		}
 
-		source.sendSuccess(() -> Component.literal("== Leaderboard [" + leaderboard.getName() + "] ==").withStyle(ChatFormatting.DARK_GREEN), false);
+		source.sendSuccess(() -> Component.literal("== 排行榜 [" + leaderboard.getName() + "] ==").withStyle(ChatFormatting.DARK_GREEN), false);
 
 		if (list.isEmpty()) {
-			source.sendSuccess(() -> Component.literal("No data!").withStyle(ChatFormatting.GRAY), false);
+			source.sendSuccess(() -> Component.literal("没有数据！").withStyle(ChatFormatting.GRAY), false);
 			return 1;
 		}
 
@@ -261,7 +261,7 @@ public class MiscCommands {
 			}
 
 			component.append(Component.literal(pair.getLeft().getName()).withStyle(i == self ? ChatFormatting.GREEN : ChatFormatting.YELLOW));
-			component.append(Component.literal(": "));
+			component.append(Component.literal("："));
 			component.append(Component.literal(leaderboard.asString(pair.getRight())));
 			source.sendSuccess(() -> component, false);
 		}
@@ -281,7 +281,7 @@ public class MiscCommands {
 			}
 
 			data.sendTabName(player.server);
-			return 1;
+			return 1; // Fuck you FTB Player
 		}).orElse(0);
 	}
 
@@ -297,7 +297,7 @@ public class MiscCommands {
 			}
 
 			data.sendTabName(player.server);
-			return 1;
+			return 1; // Fuck you too
 		}).orElse(0);
 	}
 
@@ -312,7 +312,7 @@ public class MiscCommands {
 
 	public static int nickname(ServerPlayer player, String nick) {
 		if (nick.length() > 30) {
-			player.displayClientMessage(Component.literal("Nickname too long!"), false);
+			player.displayClientMessage(Component.literal("昵称过长！"), false);
 			return 0;
 		}
 
@@ -321,9 +321,9 @@ public class MiscCommands {
 			PlayerDisplayNameUtil.refreshDisplayName(player);
 
 			if (data.getNick().isEmpty()) {
-				player.displayClientMessage(Component.literal("Nickname reset!"), false);
+				player.displayClientMessage(Component.literal("昵称已重置！"), false);
 			} else {
-				player.displayClientMessage(Component.literal("Nickname changed to '" + data.getNick() + "'"), false);
+				player.displayClientMessage(Component.literal("昵称已改为'" + data.getNick() + "'"), false);
 			}
 
 			data.sendTabName(player.server);
@@ -350,7 +350,7 @@ public class MiscCommands {
 		if (!source.hasPermission(2) && source.isPlayer()) {
 			int max = PermissionsHelper.getInstance().getInt(source.getPlayer(), MAX_PLAYER_RADIUS, "ftbessentials.near.max_radius");
 			if (radius > max) {
-				source.sendSuccess(() -> Component.literal("Limiting radius to " + max).withStyle(ChatFormatting.GOLD), false);
+				source.sendSuccess(() -> Component.literal("限制范围半径到" + max).withStyle(ChatFormatting.GOLD), false);
 				radius = max;
 			}
 		}
@@ -363,7 +363,7 @@ public class MiscCommands {
 				.toList();
 
 		final int r = radius;
-		source.sendSuccess(() -> Component.literal(l.size() + " player(s) within " + r + "m").withStyle(ChatFormatting.YELLOW), false);
+		source.sendSuccess(() -> Component.literal("有" + l.size() + "个玩家，搜索范围为" + r + "米").withStyle(ChatFormatting.YELLOW), false);
 		l.forEach(player ->
 				source.sendSuccess(() -> Component.literal("• ")
 								.append(player.getDisplayName()).withStyle(ChatFormatting.AQUA)

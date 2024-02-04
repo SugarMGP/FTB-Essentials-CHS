@@ -24,10 +24,10 @@ public class FTBEssentialsCommands {
 	}
 
 	static CompletableFuture<Suggestions> suggestDurations(SuggestionsBuilder builder) {
-		return SharedSuggestionProvider.suggest(Stream.of("5m", "10m", "1h", "1d", "1w", "* (indefinite)", "<number>[smhdw]"), builder);
+		return SharedSuggestionProvider.suggest(Stream.of("5m", "10m", "1h", "1d", "1w", "* (不限时)", "<number>[smhdw]"), builder);
 	}
 
 	static CompletableFuture<Suggestions> suggestCooldowns(SuggestionsBuilder builder) {
-		return SharedSuggestionProvider.suggest(Stream.of("5m", "10m", "1h", "1d", "1w", "* (once only)", "<number>[smhdw]"), builder);
+		return SharedSuggestionProvider.suggest(Stream.of("5m", "10m", "1h", "1d", "1w", "* (仅此一次)", "<number>[smhdw]"), builder);
 	}
 }
