@@ -75,10 +75,10 @@ public class HomeCommands {
 		return FTBEPlayerData.getOrCreate(player).map(data -> {
 			try {
 				data.homeManager().addDestination(name, new TeleportPos(player), player);
-				player.displayClientMessage(Component.literal("已设置家！"), false);
+				player.displayClientMessage(Component.literal("已设置家!"), false);
 				return 1;
 			} catch (SavedTeleportManager.TooManyDestinationsException e) {
-				player.displayClientMessage(Component.literal("小弟弟/小妹妹你还想要几个家啊！"), false);
+				player.displayClientMessage(Component.literal("哥们你还想要几个家啊!"), false);
 				return 0;
 			}
 		}).orElse(0);
@@ -87,10 +87,10 @@ public class HomeCommands {
 	public static int delHome(ServerPlayer player, String name) {
 		return FTBEPlayerData.getOrCreate(player).map(data -> {
 			if (data.homeManager().deleteDestination(name.toLowerCase())) {
-				player.displayClientMessage(Component.literal("已移除家！"), false);
+				player.displayClientMessage(Component.literal("已移除家!"), false);
 				return 1;
 			} else {
-				player.displayClientMessage(Component.literal("找不到家了！你设置了吗？"), false);
+				player.displayClientMessage(Component.literal("找不到家了! 你设置了吗?"), false);
 				return 0;
 			}
 		}).orElse(0);
@@ -99,7 +99,7 @@ public class HomeCommands {
 	public static int listHomes(CommandSourceStack source, GameProfile of) {
 		return FTBEPlayerData.getOrCreate(of).map(data -> {
 			if (data.homeManager().getNames().isEmpty()) {
-				source.sendSuccess(() -> Component.literal("你无家可归"), false);
+				source.sendSuccess(() -> Component.literal("你无家可归咯"), false);
 			} else {
 				TeleportPos origin = new TeleportPos(source.getLevel().dimension(), BlockPos.containing(source.getPosition()));
 				data.homeManager().destinations().forEach(entry ->

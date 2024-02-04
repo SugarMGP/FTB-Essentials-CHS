@@ -299,7 +299,7 @@ public class CheatCommands {
 
 	public static int nicknameFor(CommandSourceStack source, ServerPlayer player, String nick) {
 		if (nick.length() > 30) {
-			player.displayClientMessage(Component.literal("昵称过长！"), false);
+			player.displayClientMessage(Component.literal("昵称过长!"), false);
 			return 0;
 		}
 
@@ -309,7 +309,7 @@ public class CheatCommands {
 			PlayerDisplayNameUtil.refreshDisplayName(player);
 
 			if (data.getNick().isEmpty()) {
-				source.sendSuccess(() -> Component.literal("昵称已重置！"), true);
+				source.sendSuccess(() -> Component.literal("昵称已重置!"), true);
 			} else {
 				source.sendSuccess(() -> Component.literal("昵称已改为'" + data.getNick() + "'"), true);
 			}
@@ -329,13 +329,13 @@ public class CheatCommands {
 				MutableComponent msg = player.getDisplayName().copy()
 						.append(" 被 ")
 						.append(source.getDisplayName())
-						.append(" 禁言了，")
+						.append(" 禁言了, ")
 						.append(info.desc());
 				notifyMuting(source, player, msg);
 
 				return 1;
 			} catch (IllegalArgumentException e) {
-				source.sendFailure(Component.literal("无效的时效语法：'" + duration + "'：" + e.getMessage()));
+				source.sendFailure(Component.literal("无效的时效语法: '" + duration + "'：" + e.getMessage()));
 				return 0;
 			}
 		}).orElse(0);
@@ -373,7 +373,7 @@ public class CheatCommands {
 		source.getServer().getProfileCache().getAsync(playerName, profileOpt -> {
 			source.getServer().executeIfPossible(() ->
 					profileOpt.ifPresentOrElse(profile -> tpOffline(source, profile.getId(), level, dest),
-							() -> source.sendFailure(Component.literal("未知玩家：" + playerName))
+							() -> source.sendFailure(Component.literal("未知玩家: " + playerName))
 					)
 			);
 		});
@@ -388,7 +388,7 @@ public class CheatCommands {
 		File datFile = playerDir.resolve(playerId + ".dat").toFile();
 
 		if (server.getPlayerList().getPlayer(playerId) != null) {
-			source.sendFailure(Component.literal("玩家在线！请使用/tp指令"));
+			source.sendFailure(Component.literal("玩家在线! 请使用/tp指令"));
 			return 0;
 		}
 
@@ -413,7 +413,7 @@ public class CheatCommands {
 					playerId, source.getLevel().dimension().location(), vec.x, vec.y, vec.z)), false);
 			return 1;
 		} catch (IOException e) {
-			source.sendFailure(Component.literal("无法更新对应的.dat文件：" + e.getMessage()));
+			source.sendFailure(Component.literal("无法更新对应的 .dat 文件: " + e.getMessage()));
 			return 0;
 		}
 	}

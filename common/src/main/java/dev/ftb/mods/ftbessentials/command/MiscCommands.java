@@ -172,7 +172,7 @@ public class MiscCommands {
 	}
 
 	public static int kickme(ServerPlayer player) {
-		player.connection.disconnect(Component.literal("你把自己踹嘞！"));
+		player.connection.disconnect(Component.literal("你把自己踹嘞!"));
 		return 1;
 	}
 
@@ -235,7 +235,7 @@ public class MiscCommands {
 		source.sendSuccess(() -> Component.literal("== 排行榜 [" + leaderboard.getName() + "] ==").withStyle(ChatFormatting.DARK_GREEN), false);
 
 		if (list.isEmpty()) {
-			source.sendSuccess(() -> Component.literal("没有数据！").withStyle(ChatFormatting.GRAY), false);
+			source.sendSuccess(() -> Component.literal("没有数据!").withStyle(ChatFormatting.GRAY), false);
 			return 1;
 		}
 
@@ -275,9 +275,9 @@ public class MiscCommands {
 			PlayerDisplayNameUtil.refreshDisplayName(player);
 
 			if (data.getRecording() == RecordingStatus.RECORDING) {
-				player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" is now recording!"), false);
+				player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" 现在在录像!"), false);
 			} else {
-				player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" is no longer recording!"), false);
+				player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" 现在没在录像了!"), false);
 			}
 
 			data.sendTabName(player.server);
@@ -291,9 +291,9 @@ public class MiscCommands {
 			PlayerDisplayNameUtil.refreshDisplayName(player);
 
 			if (data.getRecording() == RecordingStatus.STREAMING) {
-				player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" is now streaming!"), false);
+				player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" 现在在直播!"), false);
 			} else {
-				player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" is no longer streaming!"), false);
+				player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" 现在没在直播了!"), false);
 			}
 
 			data.sendTabName(player.server);
@@ -312,7 +312,7 @@ public class MiscCommands {
 
 	public static int nickname(ServerPlayer player, String nick) {
 		if (nick.length() > 30) {
-			player.displayClientMessage(Component.literal("昵称过长！"), false);
+			player.displayClientMessage(Component.literal("昵称过长!"), false);
 			return 0;
 		}
 
@@ -321,7 +321,7 @@ public class MiscCommands {
 			PlayerDisplayNameUtil.refreshDisplayName(player);
 
 			if (data.getNick().isEmpty()) {
-				player.displayClientMessage(Component.literal("昵称已重置！"), false);
+				player.displayClientMessage(Component.literal("昵称已重置!"), false);
 			} else {
 				player.displayClientMessage(Component.literal("昵称已改为'" + data.getNick() + "'"), false);
 			}

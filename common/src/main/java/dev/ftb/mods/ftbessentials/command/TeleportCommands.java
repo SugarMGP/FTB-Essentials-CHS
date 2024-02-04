@@ -105,7 +105,7 @@ public class TeleportCommands {
 			Vec3 vec = Vec3.atBottomCenterOf(mPos);
 			player.teleportTo(vec.x(), vec.y(), vec.z());
 		} catch (Exception e) {
-			source.sendFailure(Component.literal("无法跳出：" + e.getMessage()));
+			source.sendFailure(Component.literal("无法跳出: " + e.getMessage()));
 		}
 		return 0;
 	}
@@ -117,7 +117,7 @@ public class TeleportCommands {
 	public static int back(ServerPlayer player) {
 		return FTBEPlayerData.getOrCreate(player).map(data -> {
 			if (data.teleportHistory.isEmpty()) {
-				player.displayClientMessage(Component.literal("传送历史为空！").withStyle(ChatFormatting.RED), false);
+				player.displayClientMessage(Component.literal("传送历史为空!").withStyle(ChatFormatting.RED), false);
 				return 0;
 			}
 
@@ -139,7 +139,7 @@ public class TeleportCommands {
 
 	public static int rtp(ServerPlayer player) {
 		if (!player.hasPermissions(2) && !DimensionFilter.isDimensionOK(player.level().dimension())) {
-			player.displayClientMessage(Component.literal("在这个维度中你不可以使用/rtp！").withStyle(ChatFormatting.RED), false);
+			player.displayClientMessage(Component.literal("在这个维度中你不可以使用/rtp!").withStyle(ChatFormatting.RED), false);
 			return 0;
 		}
 		return FTBEPlayerData.getOrCreate(player).map(data -> data.rtpTeleporter.teleport(player, p -> {
@@ -194,7 +194,7 @@ public class TeleportCommands {
 				}
 			}
 		}
-		player.displayClientMessage(Component.literal("无法为你找到一个合适的传送坐标！").withStyle(ChatFormatting.RED), false);
+		player.displayClientMessage(Component.literal("无法为你找到一个合适的传送坐标!").withStyle(ChatFormatting.RED), false);
 		return new TeleportPos(player);
 	}
 

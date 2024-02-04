@@ -78,7 +78,7 @@ public class TPACommands {
 		}
 
 		if (REQUESTS.values().stream().anyMatch(r -> r.source == dataSource && r.target == dataTarget)) {
-			player.displayClientMessage(Component.literal("请求已发送！别急！"), false);
+			player.displayClientMessage(Component.literal("请求已发送, 别急!"), false);
 			return 0;
 		}
 
@@ -98,7 +98,7 @@ public class TPACommands {
 		component.append((here ? player : target).getDisplayName().copy().withStyle(ChatFormatting.YELLOW));
 		component.append(" ]");
 
-		MutableComponent component2 = Component.literal("点击下面的按钮：");
+		MutableComponent component2 = Component.literal("点击下面的按钮: ");
 		component2.append(Component.literal("接受 ✔").setStyle(Style.EMPTY
 				.applyFormat(ChatFormatting.GREEN)
 				.withBold(true)
@@ -120,7 +120,7 @@ public class TPACommands {
 		target.displayClientMessage(component, false);
 		target.displayClientMessage(component2, false);
 
-		player.displayClientMessage(Component.literal("请求已发送！"), false);
+		player.displayClientMessage(Component.literal("请求已发送!"), false);
 		return 1;
 	}
 
@@ -128,14 +128,14 @@ public class TPACommands {
 		TPARequest request = REQUESTS.get(id);
 
 		if (request == null) {
-			player.displayClientMessage(Component.literal("异常请求！命令格式写对了吗？"), false);
+			player.displayClientMessage(Component.literal("异常请求! 你命令格式写对了吗?"), false);
 			return 0;
 		}
 
 		ServerPlayer sourcePlayer = player.server.getPlayerList().getPlayer(request.source.getUuid());
 
 		if (sourcePlayer == null) {
-			player.displayClientMessage(Component.literal("玩家离线！"), false);
+			player.displayClientMessage(Component.literal("玩家离线!"), false);
 			return 0;
 		}
 
@@ -154,18 +154,18 @@ public class TPACommands {
 		TPARequest request = REQUESTS.get(id);
 
 		if (request == null) {
-			player.displayClientMessage(Component.literal("异常请求！命令格式写对了吗？"), false);
+			player.displayClientMessage(Component.literal("异常请求! 你命令格式写对了吗?"), false);
 			return 0;
 		}
 
 		REQUESTS.remove(request.id);
 
-		player.displayClientMessage(Component.literal("请求被拒绝！"), false);
+		player.displayClientMessage(Component.literal("请求被拒绝!"), false);
 
 		ServerPlayer player2 = player.server.getPlayerList().getPlayer(request.target.getUuid());
 
 		if (player2 != null) {
-			player2.displayClientMessage(Component.literal("请求被拒绝！"), false);
+			player2.displayClientMessage(Component.literal("请求被拒绝!"), false);
 		}
 
 		return 1;

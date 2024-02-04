@@ -64,16 +64,16 @@ public class WarpCommands {
 
 	public static int setWarp(ServerPlayer player, String name) {
 		FTBEWorldData.instance.warpManager().addDestination(name, new TeleportPos(player), player);
-		player.displayClientMessage(Component.literal("传送已设置！"), false);
+		player.displayClientMessage(Component.literal("传送点已设置!"), false);
 		return 1;
 	}
 
 	public static int deleteWarp(ServerPlayer player, String name) {
 		if (FTBEWorldData.instance.warpManager().deleteDestination(name.toLowerCase())) {
-			player.displayClientMessage(Component.literal("传送已删除！"), false);
+			player.displayClientMessage(Component.literal("传送点已删除!"), false);
 			return 1;
 		} else {
-			player.displayClientMessage(Component.literal("传送未找到！"), false);
+			player.displayClientMessage(Component.literal("传送点未找到!"), false);
 			return 0;
 		}
 	}
