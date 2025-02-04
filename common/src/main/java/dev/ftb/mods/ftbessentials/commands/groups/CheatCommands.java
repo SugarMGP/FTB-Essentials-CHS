@@ -54,7 +54,7 @@ public class CheatCommands {
             title.append(" × ").append(player.getDisplayName());
             srcPlayer.openMenu(new SimpleMenuProvider((i, inv, p) -> ChestMenu.threeRows(i, inv, player.getEnderChestInventory()), title));
         } else {
-            ctx.getSource().sendFailure(Component.literal("Unable to open enderchest inventory!"));
+            ctx.getSource().sendFailure(Component.literal("无法打开末影箱！"));
         }
     }
 
@@ -73,11 +73,11 @@ public class CheatCommands {
                 data.setCanFly(false);
                 abilities.mayfly = false;
                 abilities.flying = false;
-                player.displayClientMessage(Component.literal("Flight disabled"), true);
+                player.displayClientMessage(Component.literal("飞行已关闭"), true);
             } else {
                 data.setCanFly(true);
                 abilities.mayfly = true;
-                player.displayClientMessage(Component.literal("Flight enabled"), true);
+                player.displayClientMessage(Component.literal("飞行已开启"), true);
             }
 
             player.onUpdateAbilities();
@@ -91,11 +91,11 @@ public class CheatCommands {
             if (data.isGod()) {
                 data.setGod(false);
                 abilities.invulnerable = false;
-                player.displayClientMessage(Component.literal("God mode disabled"), true);
+                player.displayClientMessage(Component.literal("上帝模式已关闭"), true);
             } else {
                 data.setGod(true);
                 abilities.invulnerable = true;
-                player.displayClientMessage(Component.literal("God mode enabled"), true);
+                player.displayClientMessage(Component.literal("上帝模式已开启"), true);
             }
 
             player.onUpdateAbilities();

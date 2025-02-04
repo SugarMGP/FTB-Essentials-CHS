@@ -83,7 +83,7 @@ public class LeaderboardCommand implements FTBCommand {
         source.sendSuccess(() -> Component.literal("== Leaderboard [" + leaderboard.formattedName() + "] ==").withStyle(ChatFormatting.DARK_GREEN), false);
 
         if (list.isEmpty()) {
-            source.sendSuccess(() -> Component.literal("No data!").withStyle(ChatFormatting.GRAY), false);
+            source.sendSuccess(() -> Component.literal("没有数据！").withStyle(ChatFormatting.GRAY), false);
             return 1;
         }
 

@@ -58,7 +58,7 @@ public class TPACommand implements FTBCommand {
         }
 
         if (REQUESTS.values().stream().anyMatch(r -> r.source() == dataSource && r.target() == dataTarget)) {
-            player.displayClientMessage(Component.literal("Request already sent!"), false);
+            player.displayClientMessage(Component.literal("请求已经发送！"), false);
             return 0;
         }
 
@@ -72,27 +72,27 @@ public class TPACommand implements FTBCommand {
 
         TPARequest request = create(dataSource, dataTarget, here);
 
-        MutableComponent component = Component.literal("TPA request! [ ");
+        MutableComponent component = Component.literal("TPA 请求! [ ");
         component.append((here ? target : player).getDisplayName().copy().withStyle(ChatFormatting.YELLOW));
         component.append(" ➡ ");
         component.append((here ? player : target).getDisplayName().copy().withStyle(ChatFormatting.YELLOW));
         component.append(" ]");
 
-        MutableComponent component2 = Component.literal("Click one of these: ");
-        component2.append(Component.literal("Accept ✔").setStyle(Style.EMPTY
+        MutableComponent component2 = Component.literal("点击其中之一：");
+        component2.append(Component.literal("接受 ✔").setStyle(Style.EMPTY
                 .applyFormat(ChatFormatting.GREEN)
                 .withBold(true)
                 .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaccept " + request.id()))
-                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to Accept")))
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("点击以接受")))
         ));
 
         component2.append(" | ");
 
-        component2.append(Component.literal("Deny ❌").setStyle(Style.EMPTY
+        component2.append(Component.literal("拒绝 ❌").setStyle(Style.EMPTY
                 .applyFormat(ChatFormatting.RED)
                 .withBold(true)
                 .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpdeny " + request.id()))
-                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to Deny")))
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("点击以拒绝")))
         ));
 
         component2.append(" |");
@@ -100,28 +100,28 @@ public class TPACommand implements FTBCommand {
         target.displayClientMessage(component, false);
         target.displayClientMessage(component2, false);
 
-        player.displayClientMessage(Component.literal("Request sent!"), false);
+        player.displayClientMessage(Component.literal("请求已发送！"), false);
         return 1;
     }
 
     public int tpaccept(ServerPlayer player, String id) {
         var uuid = attemptUuid(id);
         if (uuid == null) {
-            player.displayClientMessage(Component.literal("Invalid request!"), false);
+            player.displayClientMessage(Component.literal("无效的请求！"), false);
             return 0;
         }
 
         TPARequest request = REQUESTS.get(uuid);
 
         if (request == null) {
-            player.displayClientMessage(Component.literal("Invalid request!"), false);
+            player.displayClientMessage(Component.literal("无效的请求！"), false);
             return 0;
         }
 
         ServerPlayer sourcePlayer = player.server.getPlayerList().getPlayer(request.source().getUuid());
 
         if (sourcePlayer == null) {
-            player.displayClientMessage(Component.literal("Player has gone offline!"), false);
+            player.displayClientMessage(Component.literal("玩家已下线！"), false);
             return 0;
         }
 
@@ -139,24 +139,24 @@ public class TPACommand implements FTBCommand {
     public int tpdeny(ServerPlayer player, String id) {
         var uuid = attemptUuid(id);
         if (uuid == null) {
-            player.displayClientMessage(Component.literal("Invalid request!"), false);
+            player.displayClientMessage(Component.literal("无效的请求！"), false);
             return 0;
         }
 
         TPARequest request = REQUESTS.get(uuid);
         if (request == null) {
-            player.displayClientMessage(Component.literal("Invalid request!"), false);
+            player.displayClientMessage(Component.literal("无效的请求！"), false);
             return 0;
         }
 
         REQUESTS.remove(request.id());
 
-        player.displayClientMessage(Component.literal("Request denied!"), false);
+        player.displayClientMessage(Component.literal("请求已拒绝！"), false);
 
         ServerPlayer player2 = player.server.getPlayerList().getPlayer(request.target().getUuid());
 
         if (player2 != null) {
-            player2.displayClientMessage(Component.literal("Request denied!"), false);
+            player2.displayClientMessage(Component.literal("请求已拒绝！"), false);
         }
 
         return 1;

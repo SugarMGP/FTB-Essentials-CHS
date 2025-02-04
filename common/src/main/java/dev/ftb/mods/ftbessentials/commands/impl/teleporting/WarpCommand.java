@@ -62,23 +62,23 @@ public class WarpCommand implements FTBCommand {
 
     private int setWarp(ServerPlayer player, String name) {
         FTBEWorldData.instance.warpManager().addDestination(name, new TeleportPos(player), player);
-        player.displayClientMessage(Component.literal("Warp set!"), false);
+        player.displayClientMessage(Component.literal("传送点已设置！"), false);
         return 1;
     }
 
     private int deleteWarp(ServerPlayer player, String name) {
         if (FTBEWorldData.instance.warpManager().deleteDestination(name.toLowerCase())) {
-            player.displayClientMessage(Component.literal("Warp deleted!"), false);
+            player.displayClientMessage(Component.literal("传送点已删除！"), false);
             return 1;
         } else {
-            player.displayClientMessage(Component.literal("Warp not found!"), false);
+            player.displayClientMessage(Component.literal("未找到该传送点！"), false);
             return 0;
         }
     }
 
     private int listWarps(CommandSourceStack source) {
         if (FTBEWorldData.instance.warpManager().getNames().isEmpty()) {
-            source.sendSuccess(() -> Component.literal("None"), false);
+            source.sendSuccess(() -> Component.literal("无传送点"), false);
         } else {
             TeleportPos origin = new TeleportPos(source.getLevel().dimension(), BlockPos.containing(source.getPosition()));
             FTBEWorldData.instance.warpManager().destinations().forEach(entry ->

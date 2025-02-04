@@ -77,10 +77,10 @@ public class HomeCommand implements FTBCommand {
         return FTBEPlayerData.getOrCreate(player).map(data -> {
             try {
                 data.homeManager().addDestination(name, new TeleportPos(player), player);
-                player.displayClientMessage(Component.literal("Home set!"), false);
+                player.displayClientMessage(Component.literal("已设置家！"), false);
                 return 1;
             } catch (SavedTeleportManager.TooManyDestinationsException e) {
-                player.displayClientMessage(Component.literal("Can't add any more homes!"), false);
+                player.displayClientMessage(Component.literal("无法添加更多家！"), false);
                 return 0;
             }
         }).orElse(0);
@@ -89,10 +89,10 @@ public class HomeCommand implements FTBCommand {
     public int delHome(ServerPlayer player, String name) {
         return FTBEPlayerData.getOrCreate(player).map(data -> {
             if (data.homeManager().deleteDestination(name.toLowerCase())) {
-                player.displayClientMessage(Component.literal("Home deleted!"), false);
+                player.displayClientMessage(Component.literal("已删除家！"), false);
                 return 1;
             } else {
-                player.displayClientMessage(Component.literal("Home not found!"), false);
+                player.displayClientMessage(Component.literal("未找到家！"), false);
                 return 0;
             }
         }).orElse(0);
@@ -102,19 +102,18 @@ public class HomeCommand implements FTBCommand {
         return FTBEPlayerData.getOrCreate(source.getServer(), of.getId())
                 .map(data -> {
                     if (data.homeManager().getNames().isEmpty()) {
-                        source.sendSuccess(() -> Component.literal("None"), false);
+                        source.sendSuccess(() -> Component.literal("无"), false);
                     } else {
-                        source.sendSuccess(() -> Component.literal("Homes for " + of.getName() + "\n---").withStyle(ChatFormatting.GOLD), false);
+                        source.sendSuccess(() -> Component.literal(of.getName() + " 的家\n---").withStyle(ChatFormatting.GOLD), false);
 
                         TeleportPos origin = new TeleportPos(source.getLevel().dimension(), BlockPos.containing(source.getPosition()));
                         data.homeManager().destinations().forEach(entry ->
                                 source.sendSuccess(() -> {
-                                    MutableComponent literal = Component.empty().append(Component.literal(entry.name()).withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD)).append(Component.literal( ": " + entry.destination().distanceString(origin) + " away"));
+                                    MutableComponent literal = Component.empty().append(Component.literal(entry.name()).withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD)).append(Component.literal(": 距离 " + entry.destination().distanceString(origin) + " 远"));
                                     if (source.hasPermission(Commands.LEVEL_GAMEMASTERS)) {
                                         literal.withStyle(Style.EMPTY
                                                 .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp @s " + entry.destination().posAsString()))
-                                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to teleport")))
-                                        );
+                                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("点击传送"))));
                                     }
                                     return literal;
                                 }, false));

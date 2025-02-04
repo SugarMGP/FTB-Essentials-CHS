@@ -34,7 +34,7 @@ public class NicknameCommand implements FTBCommand {
 
     public int nickname(ServerPlayer player, String nick) {
         if (nick.length() > 30) {
-            player.displayClientMessage(Component.literal("Nickname too long!"), false);
+            player.displayClientMessage(Component.literal("昵称太长！"), false); // 提示昵称过长
             return 0;
         }
 
@@ -43,9 +43,9 @@ public class NicknameCommand implements FTBCommand {
             PlayerDisplayNameUtil.refreshDisplayName(player);
 
             if (data.getNick().isEmpty()) {
-                player.displayClientMessage(Component.literal("Nickname reset!"), false);
+                player.displayClientMessage(Component.literal("昵称已重置！"), false); // 提示昵称已重置
             } else {
-                player.displayClientMessage(Component.literal("Nickname changed to '" + data.getNick() + "'"), false);
+                player.displayClientMessage(Component.literal("昵称已更改为 '" + data.getNick() + "'"), false); // 提示昵称已更改
             }
 
             data.sendTabName(player.server);

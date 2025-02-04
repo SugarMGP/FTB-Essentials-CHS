@@ -54,15 +54,15 @@ public class MuteCommand implements FTBCommand {
                 FTBEWorldData.instance.setMuteTimeout(player, info.until());
 
                 MutableComponent msg = player.getDisplayName().copy()
-                        .append(" has been muted by ")
+                        .append(" 已被 ")
                         .append(source.getDisplayName())
-                        .append(", ")
+                        .append(" 静音，")
                         .append(info.desc());
                 notifyMuting(source, player, msg);
 
                 return 1;
             } catch (IllegalArgumentException e) {
-                source.sendFailure(Component.literal("Invalid duration syntax: '" + duration + "': " + e.getMessage()));
+                source.sendFailure(Component.literal("无效的持续时间语法：'" + duration + "': " + e.getMessage()));
                 return 0;
             }
         }).orElse(0);
@@ -74,8 +74,9 @@ public class MuteCommand implements FTBCommand {
             FTBEWorldData.instance.setMuteTimeout(player, -1);
 
             MutableComponent msg = player.getDisplayName().copy()
-                    .append(" has been unmuted by ")
-                    .append(source.getDisplayName());
+                    .append(" 已被 ")
+                    .append(source.getDisplayName())
+                    .append(" 解除静音");
             notifyMuting(source, player, msg);
 
             return 1;

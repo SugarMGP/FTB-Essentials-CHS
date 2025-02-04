@@ -76,11 +76,11 @@ public class SpeedCommand implements FTBCommand {
 
             double speedMult = modifier.amount();
             int boostPct = (int) (speedMult * 100);
-            msg = Component.literal("Speed boost for ")
+            msg = Component.literal("速度提升 for ")
                     .append(target.getDisplayName())
                     .append(" (").append(Component.translatable(attrInstance.getAttribute().value().getDescriptionId())).append(") = " + boostPct + "%");
         } else {
-            msg = Component.literal("No speed boost for ").append(target.getDisplayName());
+            msg = Component.literal("没有速度提升 for ").append(target.getDisplayName());
         }
         source.sendSuccess(() -> msg, false);
         if (!source.isPlayer() || source.getPlayer() != target) {

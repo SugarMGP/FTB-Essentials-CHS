@@ -99,7 +99,7 @@ public class TeleportingCommands {
     private static int back(ServerPlayer player) {
         return FTBEPlayerData.getOrCreate(player).map(data -> {
             if (data.teleportHistory.isEmpty()) {
-                player.displayClientMessage(Component.literal("Teleportation history is empty!").withStyle(ChatFormatting.RED), false);
+                player.displayClientMessage(Component.literal("传送历史为空！").withStyle(ChatFormatting.RED), false);
                 return 0;
             }
 
@@ -122,15 +122,15 @@ public class TeleportingCommands {
     //#region RTP
     private static int rtp(ServerPlayer player, int minDistance, int maxDistance) {
         if (maxDistance < minDistance) {
-            player.displayClientMessage(Component.literal("Maximum teleport distance cannot be less than minimum!"), false);
+            player.displayClientMessage(Component.literal("最大传送距离不能小于最小传送距离！"), false);
             return 0;
         }
         if (!player.hasPermissions(2) && !DimensionFilter.isRtpDimensionOK(player.level().dimension())) {
-            player.displayClientMessage(Component.literal("You may not use /rtp in this dimension!").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.literal("你不能在这个维度使用 /rtp！").withStyle(ChatFormatting.RED), false);
             return 0;
         }
         return FTBEPlayerData.getOrCreate(player).map(data -> data.rtpTeleporter.teleport(player, p -> {
-                    p.displayClientMessage(Component.literal("Looking for random location..."), false);
+                    p.displayClientMessage(Component.literal("正在寻找随机位置..."), false);
                     return findBlockPos((ServerLevel) player.level(), p, minDistance, maxDistance);
                 }).runCommand(player))
                 .orElse(0);
@@ -177,12 +177,12 @@ public class TeleportingCommands {
                     }
                 }
                 if (goodPos != null) {
-                    player.displayClientMessage(Component.literal(String.format("Found good location after %d " + (attempt == 1 ? "attempt" : "attempts") + " @ [x %d, y %d, z %d]", attempt, goodPos.getX(), goodPos.getY(), goodPos.getZ())), false);
+                    player.displayClientMessage(Component.literal(String.format("在 %d 次尝试后找到合适位置 @ [x %d, y %d, z %d]", attempt, goodPos.getX(), goodPos.getY(), goodPos.getZ())), false);
                     return new TeleportPos(world.dimension(), goodPos.above());
                 }
             }
         }
-        player.displayClientMessage(Component.literal("Could not find a valid location to teleport to!").withStyle(ChatFormatting.RED), false);
+        player.displayClientMessage(Component.literal("未找到可传送的有效位置！").withStyle(ChatFormatting.RED), false);
         return new TeleportPos(player);
     }
     //#endregion
@@ -215,7 +215,7 @@ public class TeleportingCommands {
             ServerPlayer player = source.getPlayerOrException();
 
             BlockHitResult res = BlockUtil.getFocusedBlock(player, player.getServer().getPlayerList().getViewDistance() * 16)
-                    .orElseThrow(() -> new IllegalArgumentException("Not looking at a block"));
+                    .orElseThrow(() -> new IllegalArgumentException("没有看向方块"));
             // want to land the player on top of the focused block, so scan up as far as needed
             BlockPos.MutableBlockPos mPos = res.getBlockPos().above().mutable();
             while (true) {
@@ -227,7 +227,7 @@ public class TeleportingCommands {
             Vec3 vec = Vec3.atBottomCenterOf(mPos);
             player.teleportTo(vec.x(), vec.y(), vec.z());
         } catch (Exception e) {
-            source.sendFailure(Component.literal("Can't jump: " + e.getMessage()));
+            source.sendFailure(Component.literal("无法跳跃：" + e.getMessage()));
         }
         return 0;
     }

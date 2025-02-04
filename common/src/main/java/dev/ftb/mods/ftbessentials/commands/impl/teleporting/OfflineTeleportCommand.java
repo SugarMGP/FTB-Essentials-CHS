@@ -59,7 +59,7 @@ public class OfflineTeleportCommand implements FTBCommand {
         source.getServer().getProfileCache().getAsync(playerName).whenComplete((profileOpt, throwable) -> {
             source.getServer().executeIfPossible(() ->
                     profileOpt.ifPresentOrElse(profile -> tpOffline(source, profile.getId(), level, dest),
-                            () -> source.sendFailure(Component.literal("Unknown player: " + playerName))
+                            () -> source.sendFailure(Component.literal("未知玩家：" + playerName))
                     )
             );
         });
@@ -74,7 +74,7 @@ public class OfflineTeleportCommand implements FTBCommand {
         Path datFile = playerDir.resolve(playerId + ".dat");
 
         if (server.getPlayerList().getPlayer(playerId) != null) {
-            source.sendFailure(Component.literal("Player is online! Use regular /tp command instead"));
+            source.sendFailure(Component.literal("玩家在线！请使用常规的 /tp 命令" ));
             return 0;
         }
 
@@ -95,11 +95,11 @@ public class OfflineTeleportCommand implements FTBCommand {
             Path backupFile = playerDir.resolve(playerId + ".dat_old");
             Util.safeReplaceFile(datFile, tempFile, backupFile);
 
-            source.sendSuccess(() -> Component.literal(String.format("Offline player %s moved to [%.2f,%.2f,%.2f] in %s",
+            source.sendSuccess(() -> Component.literal(String.format("离线玩家 %s 已传送到 [%.2f, %.2f, %.2f] 坐标，所在维度： %s",
                     playerId, vec.x, vec.y, vec.z, source.getLevel().dimension().location())), false);
             return 1;
         } catch (IOException e) {
-            source.sendFailure(Component.literal("Can't update dat file: " + e.getMessage()));
+            source.sendFailure(Component.literal("无法更新 dat 文件：" + e.getMessage()));
             return 0;
         }
     }
