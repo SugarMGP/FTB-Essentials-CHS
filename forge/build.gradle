@@ -15,9 +15,13 @@ loom {
 
     forge {
         convertAccessWideners = true
+        enableTransitiveAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-
         mixinConfig "ftbessentials-common.mixins.json"
+    }
+
+    mixin {
+        defaultRefmapName = "ftbessentials-forge.refmap.json"
     }
 }
 
