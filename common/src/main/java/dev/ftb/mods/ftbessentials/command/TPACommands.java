@@ -78,7 +78,7 @@ public class TPACommands {
 		}
 
 		if (REQUESTS.values().stream().anyMatch(r -> r.source == dataSource && r.target == dataTarget)) {
-			player.displayClientMessage(Component.literal("Request already sent!"), false);
+			player.displayClientMessage(Component.literal("已经发过请求了喵，请稍等一下~"), false);
 			return 0;
 		}
 
@@ -92,35 +92,35 @@ public class TPACommands {
 
 		TPARequest request = create(dataSource, dataTarget, here);
 
-		MutableComponent component = Component.literal("TPA request! [ ");
+		MutableComponent component = Component.literal("新的传送请求喵！[ ");
 		component.append((here ? target : player).getDisplayName().copy().withStyle(ChatFormatting.YELLOW));
 		component.append(" \u27A1 ");
 		component.append((here ? player : target).getDisplayName().copy().withStyle(ChatFormatting.YELLOW));
 		component.append(" ]");
 
-		MutableComponent component2 = Component.literal("Click one of these: ");
-		component2.append(Component.literal("Accept \u2714").setStyle(Style.EMPTY
+		MutableComponent component2 = Component.literal("请主人点击下面的选项喵：");
+		component2.append(Component.literal("接受 \u2714").setStyle(Style.EMPTY
 				.applyFormat(ChatFormatting.GREEN)
 				.withBold(true)
 				.withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaccept " + request.id))
-				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to Accept")))
-		));
+				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("点我接受喵~"))
+		)));
 
 		component2.append(" | ");
 
-		component2.append(Component.literal("Deny \u274C").setStyle(Style.EMPTY
+		component2.append(Component.literal("拒绝 \u274C").setStyle(Style.EMPTY
 				.applyFormat(ChatFormatting.RED)
 				.withBold(true)
 				.withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpdeny " + request.id))
-				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to Deny")))
-		));
+				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("点我拒绝喵~"))
+		)));
 
 		component2.append(" |");
 
 		target.displayClientMessage(component, false);
 		target.displayClientMessage(component2, false);
 
-		player.displayClientMessage(Component.literal("Request sent!"), false);
+		player.displayClientMessage(Component.literal("请求已经发出喵，等对方回复~"), false);
 		return 1;
 	}
 
@@ -128,14 +128,14 @@ public class TPACommands {
 		TPARequest request = REQUESTS.get(id);
 
 		if (request == null) {
-			player.displayClientMessage(Component.literal("Invalid request!"), false);
+			player.displayClientMessage(Component.literal("喵呜，这个请求无效啦~"), false);
 			return 0;
 		}
 
 		ServerPlayer sourcePlayer = player.server.getPlayerList().getPlayer(request.source.uuid);
 
 		if (sourcePlayer == null) {
-			player.displayClientMessage(Component.literal("Player has gone offline!"), false);
+			player.displayClientMessage(Component.literal("对方已经下线了喵~"), false);
 			return 0;
 		}
 
@@ -154,18 +154,18 @@ public class TPACommands {
 		TPARequest request = REQUESTS.get(id);
 
 		if (request == null) {
-			player.displayClientMessage(Component.literal("Invalid request!"), false);
+			player.displayClientMessage(Component.literal("喵呜，这个请求无效啦~"), false);
 			return 0;
 		}
 
 		REQUESTS.remove(request.id);
 
-		player.displayClientMessage(Component.literal("Request denied!"), false);
+		player.displayClientMessage(Component.literal("请求被拒绝了喵~"), false);
 
 		ServerPlayer player2 = player.server.getPlayerList().getPlayer(request.target.uuid);
 
 		if (player2 != null) {
-			player2.displayClientMessage(Component.literal("Request denied!"), false);
+			player2.displayClientMessage(Component.literal("请求被拒绝了喵~"), false);
 		}
 
 		return 1;

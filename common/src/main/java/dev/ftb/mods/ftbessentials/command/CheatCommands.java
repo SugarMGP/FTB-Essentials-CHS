@@ -129,12 +129,12 @@ public class CheatCommands {
 			data.markDirty();
 			abilities.mayfly = false;
 			abilities.flying = false;
-			player.displayClientMessage(Component.literal("Flight disabled"), true);
+			player.displayClientMessage(Component.literal("飞行模式关闭啦，注意安全喵~"), true);
 		} else {
 			data.fly = true;
 			data.markDirty();
 			abilities.mayfly = true;
-			player.displayClientMessage(Component.literal("Flight enabled"), true);
+			player.displayClientMessage(Component.literal("飞行模式已经打开了喵~"), true);
 		}
 
 		player.onUpdateAbilities();
@@ -150,12 +150,12 @@ public class CheatCommands {
 			data.god = false;
 			data.markDirty();
 			abilities.invulnerable = false;
-			player.displayClientMessage(Component.literal("God mode disabled"), true);
+			player.displayClientMessage(Component.literal("无敌状态关闭了喵~"), true);
 		} else {
 			data.god = true;
 			data.markDirty();
 			abilities.invulnerable = true;
-			player.displayClientMessage(Component.literal("God mode enabled"), true);
+			player.displayClientMessage(Component.literal("主人现在是无敌的喵~"), true);
 		}
 
 		player.onUpdateAbilities();
@@ -180,7 +180,7 @@ public class CheatCommands {
 
 	public static int nicknamefor(CommandSourceStack source, ServerPlayer player, String nick) {
 		if (nick.length() > 30) {
-			player.displayClientMessage(Component.literal("Nickname too long!"), false);
+			player.displayClientMessage(Component.literal("昵称太长了喵~"), false);
 			return 0;
 		}
 
@@ -191,9 +191,9 @@ public class CheatCommands {
 		PlayerDisplayNameUtil.refreshDisplayName(player);
 
 		if (data.nick.isEmpty()) {
-			source.sendSuccess(Component.literal("Nickname reset!"), true);
+			source.sendSuccess(Component.literal("昵称已经重置喵~"), true);
 		} else {
-			source.sendSuccess(Component.literal("Nickname changed to '" + data.nick + "'"), true);
+			source.sendSuccess(Component.literal("主人现在的昵称是 '" + data.nick + "' 喵~"), true);
 		}
 
 		data.sendTabName(source.getServer());
@@ -212,15 +212,15 @@ public class CheatCommands {
 			data.markDirty();
 
 			MutableComponent msg = player.getDisplayName().copy()
-					.append(" has been muted by ")
+					.append(" 被 ")
 					.append(source.getDisplayName())
-					.append(", ")
+					.append(" 禁言了喵~，")
 					.append(info.desc());
 			notifyMuting(source, player, msg);
 
 			return 1;
 		} catch (IllegalArgumentException e) {
-			source.sendFailure(Component.literal("Invalid duration syntax: '" + duration + "': " + e.getMessage()));
+			source.sendFailure(Component.literal("时长格式有问题喵：'" + duration + "' -> " + e.getMessage()));
 			return 0;
 		}
 	}
@@ -238,8 +238,9 @@ public class CheatCommands {
 		data.markDirty();
 
 		MutableComponent msg = player.getDisplayName().copy()
-				.append(" has been unmuted by ")
-				.append(source.getDisplayName());
+				.append(" 被 ")
+				.append(source.getDisplayName())
+				.append(" 解除禁言了喵~");
 		notifyMuting(source, player, msg);
 
 		return 1;

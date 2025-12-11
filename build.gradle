@@ -63,7 +63,7 @@ allprojects {
         }
 
         maven {
-            url "https://maven.ftb.dev"
+            url "https://maven.ftb.dev/releases"
             content {
                 includeGroup "dev.ftb.mods"
             }

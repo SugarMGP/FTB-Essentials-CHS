@@ -80,7 +80,7 @@ public class HomeCommands {
 		TeleportPos pos = data.homes.get(name.toLowerCase());
 
 		if (pos == null) {
-			player.displayClientMessage(Component.literal("Home not found!"), false);
+			player.displayClientMessage(Component.literal("没有找到这个家的坐标喵~"), false);
 			return 0;
 		}
 
@@ -95,13 +95,13 @@ public class HomeCommands {
 		}
 
 		if (data.homes.size() >= FTBEConfig.MAX_HOMES.get(player) && !data.homes.containsKey(name.toLowerCase())) {
-			player.displayClientMessage(Component.literal("Can't add any more homes!"), false);
+			player.displayClientMessage(Component.literal("主人不能再添加更多的家啦"), false);
 			return 0;
 		}
 
 		data.homes.put(name.toLowerCase(), new TeleportPos(player));
 		data.markDirty();
-		player.displayClientMessage(Component.literal("Home set!"), false);
+		player.displayClientMessage(Component.literal("家的位置已经记录好啦"), false);
 		return 1;
 	}
 
@@ -114,10 +114,10 @@ public class HomeCommands {
 
 		if (data.homes.remove(name.toLowerCase()) != null) {
 			data.markDirty();
-			player.displayClientMessage(Component.literal("Home deleted!"), false);
+			player.displayClientMessage(Component.literal("这个家已经被删除掉啦"), false);
 			return 1;
 		} else {
-			player.displayClientMessage(Component.literal("Home not found!"), false);
+			player.displayClientMessage(Component.literal("没有找到这个家的坐标喵~"), false);
 			return 0;
 		}
 	}
@@ -130,7 +130,7 @@ public class HomeCommands {
 		}
 
 		if (data.homes.isEmpty()) {
-			source.sendSuccess(Component.literal("None"), false);
+			source.sendSuccess(Component.literal("什么都没有喵~"), false);
 			return 1;
 		}
 

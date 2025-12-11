@@ -82,7 +82,7 @@ public class TeleportCommands {
 		FTBEPlayerData data = FTBEPlayerData.get(player);
 
 		if (data.teleportHistory.isEmpty()) {
-			player.displayClientMessage(Component.literal("Teleportation history is empty!").withStyle(ChatFormatting.RED), false);
+			player.displayClientMessage(Component.literal("传送记录空空的喵，没法回去惹~").withStyle(ChatFormatting.RED), false);
 			return 0;
 		}
 
@@ -107,19 +107,19 @@ public class TeleportCommands {
 
 	public static int rtp(ServerPlayer player) {
 		if (!player.hasPermissions(2) && !DimensionFilter.isDimensionOK(player.getLevel().dimension())) {
-			player.displayClientMessage(Component.literal("You may not use /rtp in this dimension!").withStyle(ChatFormatting.RED), false);
+			player.displayClientMessage(Component.literal("这个维度不能用/rtp喵~").withStyle(ChatFormatting.RED), false);
 			return 0;
 		}
 		FTBEPlayerData data = FTBEPlayerData.get(player);
 		return data.rtpTeleporter.teleport(player, p -> {
-			p.displayClientMessage(Component.literal("Looking for random location..."), false);
+			p.displayClientMessage(Component.literal("正在为主人寻找安全的随机地点喵~~"), false);
 			return findBlockPos(player.getLevel(), p, 1);
 		}).runCommand(player);
 	}
 
 	private static TeleportPos findBlockPos(ServerLevel world, ServerPlayer player, int attempt) {
 		if (attempt > FTBEConfig.RTP_MAX_TRIES.get()) {
-			player.displayClientMessage(Component.literal("Could not find a valid location to teleport to!").withStyle(ChatFormatting.RED), false);
+			player.displayClientMessage(Component.literal("找不到合适的传送地点喵，还是留在原地吧~").withStyle(ChatFormatting.RED), false);
 			return new TeleportPos(player);
 		}
 
@@ -156,12 +156,12 @@ public class TeleportCommands {
 					BlockState bs = world.getBlockState(newPos);
 
 					if (bs.getMaterial().isSolidBlocking() && !bs.is(IGNORE_RTP) && world.isEmptyBlock(newPos.above(1)) && world.isEmptyBlock(newPos.above(2)) && world.isEmptyBlock(newPos.above(3))) {
-						player.displayClientMessage(Component.literal(String.format("Found good location after %d " + (attempt == 1 ? "attempt" : "attempts") + " @ [x %d, z %d]", attempt, newPos.getX(), newPos.getZ())), false);
+						player.displayClientMessage(Component.literal(String.format("第%d次尝试终于找到安全地点了喵！位置 [x %d, z %d]", attempt, newPos.getX(), newPos.getZ())), false);
 						return new TeleportPos(world.dimension(), newPos.above());
 					}
 				}
 			} else {
-				player.displayClientMessage(Component.literal(String.format("Found good location after %d " + (attempt == 1 ? "attempt" : "attempts") + " @ [x %d, z %d]", attempt, hmPos.getX(), hmPos.getZ())), false);
+				player.displayClientMessage(Component.literal(String.format("第%d次尝试终于找到安全地点了喵！位置 [x %d, z %d]", attempt, hmPos.getX(), hmPos.getZ())), false);
 				return new TeleportPos(world.dimension(), hmPos.above());
 			}
 		}

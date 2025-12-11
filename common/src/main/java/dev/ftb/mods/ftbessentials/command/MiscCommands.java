@@ -129,7 +129,7 @@ public class MiscCommands {
 		player.openMenu(new MenuProvider() {
 			@Override
 			public Component getDisplayName() {
-				return Component.literal("Trash Can");
+				return Component.literal("随便丢垃圾的箱子喵~");
 			}
 
 			@Override
@@ -182,10 +182,10 @@ public class MiscCommands {
 			}
 		}
 
-		source.sendSuccess(Component.literal("== Leaderboard [" + leaderboard.name + "] ==").withStyle(ChatFormatting.DARK_GREEN), false);
+		source.sendSuccess(Component.literal("== 可爱排行榜 [" + leaderboard.name + "] ==").withStyle(ChatFormatting.DARK_GREEN), false);
 
 		if (list.isEmpty()) {
-			source.sendSuccess(Component.literal("No data!").withStyle(ChatFormatting.GRAY), false);
+			source.sendSuccess(Component.literal("还没有任何数据喵~").withStyle(ChatFormatting.GRAY), false);
 			return 1;
 		}
 
@@ -211,7 +211,7 @@ public class MiscCommands {
 			}
 
 			component.append(Component.literal(pair.getLeft().name).withStyle(i == self ? ChatFormatting.GREEN : ChatFormatting.YELLOW));
-			component.append(Component.literal(": "));
+			component.append(Component.literal("："));
 			component.append(Component.literal(leaderboard.stringGetter.apply(pair.getRight())));
 			source.sendSuccess(component, false);
 		}
@@ -229,9 +229,9 @@ public class MiscCommands {
 		PlayerDisplayNameUtil.refreshDisplayName(player);
 
 		if (data.recording == 1) {
-			player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" is now recording!"), false);
+			player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" 现在开始录制啦，大家注意姿势喵~"), false);
 		} else {
-			player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" is no longer recording!"), false);
+			player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" 现在不录啦，可以随意一点喵~"), false);
 		}
 
 		data.sendTabName(player.server);
@@ -248,9 +248,9 @@ public class MiscCommands {
 		PlayerDisplayNameUtil.refreshDisplayName(player);
 
 		if (data.recording == 2) {
-			player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" is now streaming!"), false);
+			player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" 正在直播喵~"), false);
 		} else {
-			player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" is no longer streaming!"), false);
+			player.server.getPlayerList().broadcastSystemMessage(player.getDisplayName().copy().withStyle(ChatFormatting.YELLOW).append(" 已经结束直播啦喵~"), false);
 		}
 
 		data.sendTabName(player.server);
@@ -268,7 +268,7 @@ public class MiscCommands {
 
 	public static int nickname(ServerPlayer player, String nick) {
 		if (nick.length() > 30) {
-			player.displayClientMessage(Component.literal("Nickname too long!"), false);
+			player.displayClientMessage(Component.literal("昵称太长了喵~"), false);
 			return 0;
 		}
 
@@ -282,9 +282,9 @@ public class MiscCommands {
 		PlayerDisplayNameUtil.refreshDisplayName(player);
 
 		if (data.nick.isEmpty()) {
-			player.displayClientMessage(Component.literal("Nickname reset!"), false);
+			player.displayClientMessage(Component.literal("昵称已经重置喵~"), false);
 		} else {
-			player.displayClientMessage(Component.literal("Nickname changed to '" + data.nick + "'"), false);
+			player.displayClientMessage(Component.literal("主人现在的昵称是 '" + data.nick + "' 喵~"), false);
 		}
 
 		data.sendTabName(player.server);
